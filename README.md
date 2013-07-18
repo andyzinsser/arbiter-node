@@ -1,2 +1,4 @@
-node-arbiter
+arbiter
 ============
+
+Add betting into your games.

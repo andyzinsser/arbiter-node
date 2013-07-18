@@ -1,0 +1,25 @@
+{
+  "name": "arbiter-node",
+  "version": "0.0.0",
+  "description": "Package for the Arbiter api. arbiter.me",
+  "main": "index.js",
+  "dependencies": {
+    "request": "2.22.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andyzinsser/arbiter-node.git"
+  },
+  "keywords": [
+    "arbiter",
+    "game",
+    "betting"
+  ],
+  "author": "Andy Zinsser",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "9e38b9819a365e1e798facf88a86dbdc8a51c15b"
+}
