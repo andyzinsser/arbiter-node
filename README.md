@@ -1,4 +1,4 @@
-arbiter
+Arbiter
 ============
 
-Add betting into your games.
+Add betting to your games. More details coming soon.
