@@ -25,15 +25,20 @@
 
 // Module Dependencies
 // ------------------------------------------------
-var request = require('request'),
-    URLS = require('../lib/urls');
+var request = require('request');
 
 // Private vars
 // ------------------------------------------------
 var dataStore = {},
     _accessToken,
     _gameApiKey,
-    _isInitialized = false;
+    _isInitialized = false,
+    _VERSION = 1,
+    _BASE_URL = 'https://www.arbiter.me/api/v' + _VERSION + '/',
+    URLS = {
+        INITIALIZE_USER: _BASE_URL + 'user/initialize',
+        MATCHMAKING: _BASE_URL + 'matchmaking/'
+    };
 
 
 exports.clearCache = function(){

@@ -1,8 +1,13 @@
 var should = require('should'),
     request = require('request'),
     assert = require('assert'),
-    arbiter = require('../lib/arbiter'),
-    URLS = require('../lib/urls');
+    arbiter = require('../arbiter'),
+    _VERSION = 1,
+    _BASE_URL = 'https://www.arbiter.me/api/v' + _VERSION + '/',
+    URLS = {
+        INITIALIZE_USER: _BASE_URL + 'user/initialize',
+        MATCHMAKING: _BASE_URL + 'matchmaking/'
+    };
 
 
 // Helper functions
@@ -45,27 +50,31 @@ describe( 'Matchmaking', function() {
         });
     });
 
-    it.only( 'should match two users', function( done ) {
+    it( 'should match two users', function( done ) {
+        this.timeout(20000);
         var playerIds = [],
-            filters = {arbiter_node_plugin_test_filers: '1'},
-            haveCheckedIds = false;
+            filter_value = Math.floor( Math.random() * 1000 );
+            filters = {arbiter_node_plugin_test_filters: filter_value},
+            matchCanceled = false;
 
         var checkIdsOnceFinished = function( match ) {
-            haveCheckedIds = true;
-            arbiter.cancelMatch( undefined, match, filters, function( res, body ) {
-                assert.equal( JSON.parse( body ).success, true);
-                assert.notEqual( match.players.indexOf(playerIds[0]), -1);
-                assert.notEqual( match.players.indexOf(playerIds[1]), -1);
-                done();
-            });
+            if ( !matchCanceled ) {
+                matchCanceled = true;
+                arbiter.cancelMatch( undefined, match, filters, function( res, body ) {
+                    assert.equal( JSON.parse( body ).success, true);
+                    assert.notEqual( match.players.indexOf(playerIds[0]), -1);
+                    assert.notEqual( match.players.indexOf(playerIds[1]), -1);
+                    done();
+                });
+            }
         };
 
         bootstrapClient( function( player ) {
             playerIds.push(player.arbiterId );
             arbiter.requestMatch( player.arbiterId, filters, function( args ) {
                 assert.equal(args.success, true);
-                if ( playerIds.length == 2 && !haveCheckedIds) {
-                    checkIdsOnceFinished(args.matches[0]);
+                if ( playerIds.length == 2 ) {
+                    checkIdsOnceFinished( args.matches[0] );
                 }
             });
         });
@@ -74,8 +83,8 @@ describe( 'Matchmaking', function() {
             playerIds.push( player.arbiterId );
             arbiter.requestMatch( player.arbiterId, filters, function( args ) {
                 assert.equal(args.success, true);
-                if ( playerIds.length == 2 && !haveCheckedIds ) {
-                    checkIdsOnceFinished(args.matches[0]);
+                if ( playerIds.length == 2 ) {
+                    checkIdsOnceFinished( args.matches[0] );
                 }
             });
         });

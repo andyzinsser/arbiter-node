@@ -1,1 +1,1 @@
-module.exports = require('./lib/arbiter');
+module.exports = require('arbiter');
