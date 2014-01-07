@@ -1,8 +1,8 @@
 {
   "name": "arbiter-node",
-  "version": "1.0.0",
-  "description": "Package for the Arbiter api. arbiter.me",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "Wrapper for the Arbiter API. arbiter.me",
+  "main": "lib/index.js",
   "dependencies": {
     "request": "2.22.0"
   },
